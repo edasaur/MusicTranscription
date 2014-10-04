@@ -21,7 +21,7 @@ int main(const char *inputFilename) {
         
     while ((int)(sf_seek(input, 0, SEEK_CUR)) >= 0){
         double interArray[num_frames];
-        offset = offset + sf_readf_double(input, input+(int)(offset), num_frames); //check the array to see if done correctly? Should be pointer pointing at current position in array
+        offset = offset + sf_readf_double(input, interArray, num_frames); //check the array to see if done correctly? Should be pointer pointing at current position in array
         //probably want to do the FFT right here?
 
         sf_seek(input, offset, SEEK_SET);

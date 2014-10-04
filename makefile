@@ -1,5 +1,5 @@
 reader: reader.c
-	gcc -Wall reader.c -o reader
+	gcc -Wall `pkg-config --cflags sndfile` -c reader.c -o reader
 
 clean:
 	rm -f reader
