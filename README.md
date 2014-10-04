@@ -10,6 +10,3 @@ Goals:
 - Also perform rhythm recognition
 - Output into sheet music from possibly MIDI format maybe using velato?
 - Make into a web application much like many youtube to mp3 services.
-
-
-Hi
