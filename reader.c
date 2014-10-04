@@ -19,7 +19,7 @@ main(const char *path) {
     sf_count_t start = sf_seek(arr, sf_count_t frames, int whence);
     // whence is one of SEEK_SET, SEEK_CUR, SEEK_END. We will use SEEK_SET
     // SEEK_SET is the start of the audio data and frames is an additional
-    // offset.
+    // offset == 0.
     // Return value is not used
 
     sf_count_t read, num_frames;
@@ -27,7 +27,7 @@ main(const char *path) {
     
     while (read == num_frames) {
         read = sf_readf_type(arr, type *ptr, sf_count_t num_frames);
-        sf_seek(arr, num_frames, SEEK_CUR);
+        sf_seek(arr, read, SEEK_CUR);
         // reads num_frames number of frames into *ptr
         // *ptr contains either short, int, float, or double
         // sf_seek(arr, frames, SEEK_CUR) moves the read pointer to the next
