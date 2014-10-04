@@ -8,7 +8,7 @@
 
 
 int main(int argc, char *argv[]) {
-    const char *inputFilename = argv[0];
+    const char *inputFilename = argv[1];
     SNDFILE *input, *output;
     SF_INFO sfinfo;
     
