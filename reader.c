@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sndfile.h>
 #include <fftw3.h>
 
@@ -6,7 +7,8 @@
 
 
 
-int main(const char *inputFilename) {
+int main(int argc, char *argv[]) {
+    const char *inputFilename = argv[0];
     SNDFILE *input, *output;
     SF_INFO sfinfo;
     
@@ -29,15 +31,16 @@ int main(const char *inputFilename) {
         double interArray[num_frames];
         offset = offset + sf_readf_double(input, interArray, num_frames); //check the array to see if done correctly? Should be pointer pointing at current position in array
         //probably want to do the FFT right here. Takes in a certain sample of audio and stores it away
-        fftw_complex *in, *out;
-        fftw_plan p;
-        in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * N);
-        out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * N);
-        p = fftw_plan_dft_1d(N, in, out, FFTW_FORWARD, FFTW_ESTIMATE);
-        fftw_execute(p); 
-        fftw_destroy_plan(p);
-        fftw_free(in); 
-        fftw_free(out);
+        //fftw_complex *in, *out;
+        //fftw_plan fftPlan;
+        ////in = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * num_frames);
+        //out = (fftw_complex*) fftw_malloc(sizeof(fftw_complex) * num_frames);
+        //fftPlan = fftw_plan_dft_1d(num_frames, (fftw_complex)(interArray), out, FFTW_FORWARD, FFTW_MEASURE); //Change FFTW_MEASURE to FFTW_ESTIMATE if taking too long
+        //fftw_execute(fftPlan); 
+        //fftw_destroy_plan(fftPlan);
+        //double outputArray[num_frames] = (double)out
+        ////fftw_free(in);
+        //fftw_free(out);
         //end fourier shit
         sf_seek(input, offset, SEEK_SET);
     }
@@ -48,4 +51,5 @@ int main(const char *inputFilename) {
         printf("Something went wrong when closing the file!");
         exit(1);
     }
+    return 0;
 }
