@@ -2,7 +2,7 @@
 set -e
 
 DIR="testsounds/"
-INPUT="eqt-chromo-sc.wav"
+INPUT="chromatic.wav"
 OUT="output/"
 
 mkdir -p $OUT
