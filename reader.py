@@ -1,3 +1,5 @@
+from __future__ import print_function, division
+
 # Read in a WAV and find the freq's
 from ctypes import *
 from cStringIO import StringIO
@@ -31,7 +33,7 @@ window = np.blackman(chunk)
 #                 output = True)
 
 data = wf.readframes(chunk/channels)
-print "%s frames, %s channels" % (wf.getnframes(), wf.getnchannels())
+print("%s frames, %s channels, %s swidth, %s fps, %s" % (wf.getnframes(), channels, swidth, RATE, wf.getcompname()))
 
 
 class Notes:
@@ -41,9 +43,9 @@ class Notes:
         self.last_dur = 0
 
     def heard(self, thenote):
-        seconds = self.last_dur * chunk / float(RATE)
+        seconds = self.last_dur * chunk / RATE
         if self.last_note is not None and self.last_dur > 1:
-            print "%s  %.3fs" % (self.last_note.ljust(4), seconds)
+            print("%s  %.3fs" % (self.last_note.ljust(4), seconds))
             self.all_notes.append([self.last_note, self.last_dur, None])
         self.last_dur = 1
         self.last_note = thenote
@@ -66,7 +68,7 @@ class Notes:
         times = []
         for i, group in enumerate(groups):
             if group:
-                times.append(sum(map(x1,group))/float(len(group)))
+                times.append(sum(map(x1,group))/len(group))
             else:
                 times.append(times[-1] * 2)
 
@@ -107,7 +109,7 @@ while len(data) == chunk*swidth:
     if which != len(fftData)-1:
         y0,y1,y2 = np.log(fftData[which-1:which+2:])
         if y0 == float('-inf'):
-            print "??"
+            # print "??"
             continue
         x1 = (y2 - y0) * .5 / (2 * y1 - y2 - y0)
         # find the frequency and output it
@@ -126,7 +128,7 @@ while len(data) == chunk*swidth:
 
 notes.heard("the_end")
 notes.cluster()
-print notes
+print(notes)
 
 if data:
     stream.write(data)
