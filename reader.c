@@ -67,22 +67,24 @@ int main(int argc, char *argv[]) {
             fftPlan = fftw_plan_dft_1d(second-first, input, out, FFTW_FORWARD, FFTW_ESTIMATE); //Change FFTW_MEASURE to FFTW_ESTIMATE if taking too long
             fftw_execute(fftPlan); 
             fftw_destroy_plan(fftPlan);
-            printf("After Fourier: \n");
+            //printf("After Fourier: \n");
             //could possibly be very wrong
-            int k;
-            double largest = 0.0;
+            int k, index;
+            double largest;
             for (k = 0; k < second - first; k++) {
                 double temp =  magnitude(out[k][0],out[k][1]);
                 if (k==0) {
                     largest = temp; 
+                    index = 0;
                 }
                 else {
                     if (temp > largest) {
                         largest = temp;
+                        index = k;
                     }
                 }
             }
-            printf("Largest number in Fourier is: %g", largest);
+            printf("Largest number in Fourier is %g @ %d \n", largest, index);
             //print_carray(out, (int)num_frames*sfinfo.channels);
             //double outputArray[num_frames] = (double)out
             //fftw_free(in);
