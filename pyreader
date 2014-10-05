@@ -1,0 +1,14 @@
+#!/bin/sh
+set -e
+
+DIR="testsounds/"
+INPUT="eqt-chromo-sc.wav"
+OUT="output/"
+
+mkdir -p $OUT
+python reader.py $DIR$INPUT | tee /dev/tty | tail -n 4 > $OUT$INPUT.ly
+cd $OUT
+lilypond $INPUT.ly
+rm $INPUT.ly
+cd ..
+xdg-open $OUT$INPUT.pdf
