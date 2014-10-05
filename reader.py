@@ -1,7 +1,7 @@
 # Read in a WAV and find the freq's
 from ctypes import *
 from cStringIO import StringIO
-import pyaudio
+# import pyaudio
 import wave
 import numpy as np
 import sys
@@ -23,12 +23,12 @@ channels = wf.getnchannels()
 
 window = np.blackman(chunk)
 
-p = pyaudio.PyAudio()
-stream = p.open(format =
-                p.get_format_from_width(wf.getsampwidth()),
-                channels = wf.getnchannels(),
-                rate = RATE,
-                output = True)
+# p = pyaudio.PyAudio()
+# stream = p.open(format =
+#                 p.get_format_from_width(wf.getsampwidth()),
+#                 channels = wf.getnchannels(),
+#                 rate = RATE,
+#                 output = True)
 
 data = wf.readframes(chunk/channels)
 print "%s frames, %s channels" % (wf.getnframes(), wf.getnchannels())
@@ -91,8 +91,8 @@ notes = Notes()
 # play stream and find the frequency of each chunk
 while len(data) == chunk*swidth:
 
-    # write data out to the audio stream
-    stream.write(data)
+    # # write data out to the audio stream
+    # stream.write(data)
 
     # unpack the data and times by the hamming window
     indata = np.array(wave.struct.unpack("%dh"%(len(data)/swidth),\
